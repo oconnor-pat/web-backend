@@ -1,10 +1,10 @@
 {
   "name": "jwt-authentication",
   "version": "1.0.0",
-  "type": "module",
   "description": "",
   "main": "app.ts",
   "scripts": {
+    "build": "tsc",
     "start": "npm run dev",
     "dev": "nodemon --exec ts-node app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -29,8 +29,8 @@
     "@types/jsonwebtoken": "^9.0.3",
     "esm": "^3.2.25",
     "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
-    "vite": "^4.5.0",
-    "ts-node": "^10.9.1"
+    "vite": "^4.5.0"
   }
 }

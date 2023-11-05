@@ -18,6 +18,8 @@ const cors_1 = __importDefault(require("cors"));
 const user_1 = require("./models/user");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const path_1 = __importDefault(require("path"));
+require("dotenv/config");
 const app = (0, express_1.default)();
 // Cors
 app.use((0, cors_1.default)());
@@ -28,15 +30,16 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({
     extended: true,
 }));
-// Declare The PORT
+app.use(express_1.default.static(path_1.default.join(__dirname, "public")));
+// PORT
 const PORT = process.env.PORT || 8000;
 app.get("/", (req, res) => {
     res.send("<h1>Welcome To JWT Authentication </h1>");
 });
-// Listen the server
+// Listen for the server on PORT
 app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     console.log(`🗄️ Server Fire on http://localhost:${PORT}`);
-    // Connect To The Database
+    // Connect to Database
     try {
         const databaseURL = process.env.DATABASE_URL || "mongodb://localhost:27017/Web";
         yield mongoose_1.default.connect(databaseURL);
@@ -110,9 +113,11 @@ app.post("/auth/register", (req, res) => __awaiter(void 0, void 0, void 0, funct
 app.post("/auth/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { username, password } = req.body;
+        console.log("Received data from frontend - Username:", username, "Password:", password);
         // Check if the user exists in the database
-        const user = yield user_1.User.findOne({ username, });
+        const user = yield user_1.User.findOne({ username });
         if (!user) {
+            console.log("User not found in the database for username:", username);
             return res.status(404).json({
                 status: 404,
                 message: "User not found",
@@ -122,6 +127,7 @@ app.post("/auth/login", (req, res) => __awaiter(void 0, void 0, void 0, function
         // Set up proper password hashing library like bcrypt
         // to compare the hashed password from the database with the provided password.
         if (!passwordMatch) {
+            console.log("Password mismatch for username:", username);
             return res.status(401).json({
                 status: 401,
                 message: "Incorrect password",
@@ -136,7 +142,7 @@ app.post("/auth/login", (req, res) => __awaiter(void 0, void 0, void 0, function
         });
     }
     catch (error) {
-        console.log(error);
+        console.log("Error logging in:", error);
         res.status(500).json({
             status: 500,
             message: "Failed to process login request",
