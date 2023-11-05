@@ -6,6 +6,7 @@ import { User } from "./models/user";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import path from "path";
+import 'dotenv/config';
 
 const app: Application = express();
 
