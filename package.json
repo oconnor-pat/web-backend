@@ -2,7 +2,7 @@
   "name": "jwt-authentication",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.ts",
   "scripts": {
     "start": "npm run dev",
     "dev": "nodemon app.ts",
