@@ -26,7 +26,7 @@ app.use(
 app.use(express.static(path.join(__dirname, "public")));
 
 // PORT
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
 app.get("/", (req, res) => {
   res.send("<h1>Welcome To JWT Authentication </h1>");
 });
