@@ -8,8 +8,15 @@ import dotenv from "dotenv";
 
 const app: Application = express();
 
+const corsOptions = {
+  origin: "https://bew-584382a4b042.herokuapp.com",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
 // CORS
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Configure env
 dotenv.config();
