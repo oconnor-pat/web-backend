@@ -9,7 +9,7 @@ import dotenv from "dotenv";
 const app: Application = express();
 
 const corsOptions = {
-  origin: "https://bew-584382a4b042.herokuapp.com",
+  origin: "http://localhost:3000",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   optionsSuccessStatus: 204,
