@@ -8,18 +8,19 @@ import dotenv from "dotenv";
 
 const app: Application = express();
 
-// CORS
+// Configure env
+dotenv.config();
+
+const corsOrigin = process.env.CORS_ORIGIN || "https://bew.netlify.app";
 app.use(
   cors({
-    origin: "https://bew.netlify.app",
+    origin: corsOrigin,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-// Configure env
-dotenv.config();
 
 // Parser
 app.use(express.json());
