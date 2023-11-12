@@ -19,16 +19,16 @@ const user_1 = require("./models/user");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
-// CORS
+// Configure env
+dotenv_1.default.config();
+const corsOrigin = process.env.CORS_ORIGIN || "https://bew.netlify.app";
 app.use((0, cors_1.default)({
-    origin: "https://bew.netlify.app",
+    origin: corsOrigin,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
     allowedHeaders: ["Content-Type", "Authorization"],
 }));
-// Configure env
-dotenv_1.default.config();
 // Parser
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({
