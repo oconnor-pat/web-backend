@@ -19,14 +19,14 @@ const user_1 = require("./models/user");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
-const corsOptions = {
-    origin: "https://bew-584382a4b042.herokuapp.com",
+// CORS
+app.use((0, cors_1.default)({
+    origin: "https://bew.netlify.app",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
-};
-// CORS
-app.use((0, cors_1.default)(corsOptions));
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
 // Configure env
 dotenv_1.default.config();
 // Parser
@@ -34,12 +34,15 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({
     extended: true,
 }));
-// PORT
-const PORT = process.env.PORT || 8000;
 // Check server availability
 app.get("/check", (req, res) => {
     // Return a 200 status if the server is available
     res.sendStatus(200);
+});
+// Declare The PORT
+const PORT = process.env.PORT || 8000;
+app.get("/", (req, res) => {
+    res.send("Hello Express");
 });
 // Listen for the server on PORT
 app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
@@ -105,6 +108,7 @@ app.post("/auth/register", (req, res) => __awaiter(void 0, void 0, void 0, funct
 // User API to login
 app.post("/auth/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("Login request received", req.body);
         const { username, password } = req.body;
         const user = yield user_1.User.findOne({ username });
         if (!user) {
