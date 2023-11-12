@@ -8,16 +8,16 @@ import dotenv from "dotenv";
 
 const app: Application = express();
 
-const corsOptions = {
-  origin: "http://localhost:3000",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
-
 // CORS
-app.use(cors(corsOptions));
-
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 // Configure env
 dotenv.config();
 
@@ -29,13 +29,16 @@ app.use(
   })
 );
 
-// PORT
-const PORT = process.env.PORT || 8000;
-
 // Check server availability
 app.get("/check", (req: Request, res: Response) => {
   // Return a 200 status if the server is available
   res.sendStatus(200);
+});
+
+// Declare The PORT
+const PORT = process.env.PORT || 8000;
+app.get("/", (req, res) => {
+  res.send("Hello Express");
 });
 
 // Listen for the server on PORT
@@ -112,6 +115,7 @@ app.post("/auth/register", async (req: Request, res: Response) => {
 // User API to login
 app.post("/auth/login", async (req: Request, res: Response) => {
   try {
+    console.log("Login request received", req.body);
     const { username, password } = req.body;
 
     const user = await User.findOne({ username });
