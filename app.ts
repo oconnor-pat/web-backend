@@ -5,6 +5,7 @@ import cors from "cors";
 import { User } from "./models/user";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
+import path from "path";
 
 const app: Application = express();
 
@@ -29,6 +30,9 @@ app.use(
     extended: true,
   })
 );
+
+// Serve static files from the 'dist' directory
+app.use(express.static(path.resolve(__dirname, "jwt-authentication/dist")));
 
 // Check server availability
 app.get("/check", (req: Request, res: Response) => {
