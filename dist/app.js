@@ -21,7 +21,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const app = (0, express_1.default)();
 // Configure env
 dotenv_1.default.config();
-const corsOrigin = process.env.CORS_ORIGIN || "https://bew.netlify.app";
+const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:3000";
 app.use((0, cors_1.default)({
     origin: corsOrigin,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
