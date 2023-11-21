@@ -22,14 +22,17 @@ const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 // Configure env
 dotenv_1.default.config();
-const corsOrigin = process.env.CORS_ORIGIN || "http://localhost:3000";
-app.use((0, cors_1.default)({
-    origin: corsOrigin,
+const corsOptions = {
+    origin: [
+        "http://localhost:3000",
+        "https://bew-app-1eaf351fcd33.herokuapp.com",
+    ],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
     optionsSuccessStatus: 204,
     allowedHeaders: ["Content-Type", "Authorization"],
-}));
+};
+app.use((0, cors_1.default)(corsOptions));
 // Parser
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({
@@ -127,6 +130,10 @@ app.post("/auth/login", (req, res) => __awaiter(void 0, void 0, void 0, function
                 message: "Incorrect password",
             });
         }
+        // Set CORS headers
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         return res.status(200).json({
             status: 200,
             success: true,
