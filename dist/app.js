@@ -18,7 +18,6 @@ const cors_1 = __importDefault(require("cors"));
 const user_1 = require("./models/user");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 // Configure env
 dotenv_1.default.config();
@@ -38,8 +37,6 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({
     extended: true,
 }));
-// Serve static files from the 'dist' directory
-app.use(express_1.default.static(path_1.default.resolve(__dirname, "jwt-authentication/dist")));
 // Check server availability
 app.get("/check", (req, res) => {
     // Return a 200 status if the server is available
@@ -61,6 +58,7 @@ app.listen(PORT, () => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.log("⚠️ Error connecting to the database:", error);
+        process.exit(1); // Exit the process
     }
 }));
 // User API to register account

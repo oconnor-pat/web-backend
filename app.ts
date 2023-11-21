@@ -33,9 +33,6 @@ app.use(
   })
 );
 
-// Serve static files from the 'dist' directory
-app.use(express.static(path.resolve(__dirname, "jwt-authentication/dist")));
-
 // Check server availability
 app.get("/check", (req: Request, res: Response) => {
   // Return a 200 status if the server is available
@@ -60,6 +57,7 @@ app.listen(PORT, async () => {
     console.log("🛢️ Connected To Database");
   } catch (error) {
     console.log("⚠️ Error connecting to the database:", error);
+    process.exit(1); // Exit the process
   }
 });
 
