@@ -15,7 +15,7 @@ dotenv.config();
 const corsOptions = {
   origin: [
     "http://localhost:3000",
-    "https://bew-app-1eaf351fcd33.herokuapp.com",
+    "https://bew-app-b16d4a15e37d.herokuapp.com/",
   ],
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
