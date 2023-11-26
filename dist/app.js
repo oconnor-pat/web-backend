@@ -12,13 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
+const express = require("express");
+const cors = require("cors");
 const mongoose_1 = __importDefault(require("mongoose"));
-const cors_1 = __importDefault(require("cors"));
 const user_1 = require("./models/user");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const app = (0, express_1.default)();
+const app = express();
 // Configure env
 dotenv_1.default.config();
 const corsOptions = {
@@ -31,10 +31,10 @@ const corsOptions = {
     optionsSuccessStatus: 204,
     allowedHeaders: ["Content-Type", "Authorization"],
 };
-app.use((0, cors_1.default)(corsOptions));
+app.use(cors(corsOptions));
 // Parser
-app.use(express_1.default.json());
-app.use(express_1.default.urlencoded({
+app.use(express.json());
+app.use(express.urlencoded({
     extended: true,
 }));
 // Check server availability

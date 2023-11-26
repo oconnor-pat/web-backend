@@ -1,7 +1,7 @@
-import express from "express";
+import express = require("express");
+import cors = require("cors");
 import { Application, Request, Response } from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 import { User } from "./models/user";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
@@ -33,14 +33,14 @@ app.use(
 );
 
 // Check server availability
-app.get("/check", (res: Response) => {
+app.get("/check", (req: Request,res: Response) => {
   // Return a 200 status if the server is available
   res.sendStatus(200);
 });
 
 // Declare The PORT
 const PORT = process.env.PORT || 8000;
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Hello Express");
 });
 
