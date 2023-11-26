@@ -5,7 +5,6 @@ import cors from "cors";
 import { User } from "./models/user";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
-import path from "path";
 
 const app: Application = express();
 
@@ -34,7 +33,7 @@ app.use(
 );
 
 // Check server availability
-app.get("/check", (req: Request, res: Response) => {
+app.get("/check", (res: Response) => {
   // Return a 200 status if the server is available
   res.sendStatus(200);
 });
