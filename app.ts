@@ -33,7 +33,7 @@ app.use(
 );
 
 // Check server availability
-app.get("/check", (req: Request,res: Response) => {
+app.get("/check", (req: Request, res: Response) => {
   // Return a 200 status if the server is available
   res.sendStatus(200);
 });
@@ -50,9 +50,9 @@ app.listen(PORT, async () => {
 
   // Connect to Database
   try {
-    const databaseURL =
-      process.env.DATABASE_URL || "mongodb://localhost:27017/Web";
-    await mongoose.connect(databaseURL);
+    const DATABASE_URL =
+      process.env.MONGODB_URI || "mongodb://localhost:27017/Web";
+    await mongoose.connect(DATABASE_URL);
     console.log("🛢️ Connected To Database");
   } catch (error) {
     console.log("⚠️ Error connecting to the database:", error);
