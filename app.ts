@@ -1,5 +1,5 @@
-import express = require("express");
-import cors = require("cors");
+import express from "express";
+import cors from "cors";
 import { Application, Request, Response } from "express";
 import mongoose from "mongoose";
 import { User } from "./models/user";
